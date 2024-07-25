@@ -249,3 +249,16 @@ uint8_t TWI_SlaveReadData(void)
 
 	return TWDR;
 }
+
+/**
+ * @brief Sends a stop condition on the TWI bus.
+ *
+ * This function generates a stop condition to signal the end of a TWI communication.
+ */
+void TWI_Stop(void)
+{
+	TWCR = (1<<TWINT)|(1<<TWEN)|(1<<TWSTO);
+
+    /* Wait for STOP condition to be executed on bus */
+    while (TWCR & (1 << TWSTO));
+}
